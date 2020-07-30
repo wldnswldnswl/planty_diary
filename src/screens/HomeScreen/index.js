@@ -53,7 +53,7 @@ export default class HomeScreen extends Component {
             nickname: this.props.route.params.nickname,
             email: "",
             CalendarList: [],
-            TodoList: [],
+            // TodoList: [],
             nickname: this.props.route.params.nickname
         }
 
@@ -91,7 +91,8 @@ export default class HomeScreen extends Component {
             uuid: data,
             year: this.state.year,
             month: this.state.CalendarMonth,
-            date: this.state.CalendarDate
+            date: this.state.CalendarDate,
+            day:this.state.CalendarDay
         });
     }
 
@@ -191,14 +192,14 @@ export default class HomeScreen extends Component {
         const end_date = this.state.year + "." + month + "." + date;
         const start_date = this.state.year + "." + month + "." + date;
 
-        const path_todolist = "/todolist/getCurrentDayList/" + JSON.parse(this.state.email) + "/" + end_date;
+        // const path_todolist = "/todolist/getCurrentDayList/" + JSON.parse(this.state.email) + "/" + end_date;
         const path_calendarlist = "/calendar/getCurrentDayList/" + JSON.parse(this.state.email) + "/" + start_date;
 
         if (flag) {
-            const response_todolist = await getApi("ApiToDoList", path_todolist);
+            // const response_todolist = await getApi("ApiToDoList", path_todolist);
             const response_calendarlist = await getApi("ApiCalendar", path_calendarlist);
 
-            this.setState({ TodoList: response_todolist });
+            // this.setState({ TodoList: response_todolist });
             this.setState({ CalendarList: response_calendarlist });
         }
         
@@ -233,19 +234,19 @@ export default class HomeScreen extends Component {
         const list_chg = this.props.route.params.list_chg;
 
         //할일 목록들 todo_list에 맵핑
-        const todo_list = this.state.TodoList.map(todo_list => {
-            return (
-                <View style={styles.daymodalcontent} onStartShouldSetResponder={() => { this.gotoToDoScreen(false, todo_list.uuid); this.toggleCalendarModal(); }}>
-                    <View style={styles.daymodaltheme}>
-                        <View style={[styles.daymodalcolortheme, { borderColor: getColor(todo_list.color) }, { backgroundColor: getColor(todo_list.color) }, { left: wp("1.5%") }, { top: wp("3%") }]} />
-                    </View>
+        // const todo_list = this.state.TodoList.map(todo_list => {
+        //     return (
+        //         <View style={styles.daymodalcontent} onStartShouldSetResponder={() => { this.gotoToDoScreen(false, todo_list.uuid); this.toggleCalendarModal(); }}>
+        //             <View style={styles.daymodaltheme}>
+        //                 <View style={[styles.daymodalcolortheme, { borderColor: getColor(todo_list.color) }, { backgroundColor: getColor(todo_list.color) }, { left: wp("1.5%") }, { top: wp("3%") }]} />
+        //             </View>
 
-                    <View style={styles.daymodaltext}>
-                        <Text style={{ fontSize: 17, color: getColor(todo_list.color) }}>{todo_list.title}</Text>
-                    </View>
-                </View>
-            )
-        })
+        //             <View style={styles.daymodaltext}>
+        //                 <Text style={{ fontSize: 17, color: getColor(todo_list.color) }}>{todo_list.title}</Text>
+        //             </View>
+        //         </View>
+        //     )
+        // })
 
         //일정 목록들 calendar_list에 맵핑
         const calendar_list = this.state.CalendarList.map(calendar_list => {
@@ -410,7 +411,7 @@ export default class HomeScreen extends Component {
 
                         <ScrollView style={styles.scrollView}>
                             <View style={styles.daymodallist}>
-                                {todo_list}
+                                {/* {todo_list} */}
                                 {calendar_list}
                             </View>
                         </ScrollView>

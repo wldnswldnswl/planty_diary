@@ -6,7 +6,7 @@ import ContentsScreen from './CustomerSupportItem/ContentsScreen';
 import HomeScreen from './HomeScreen'; 
 import ToDoListScreen from './ToDoListScreen';
 // import ToDoScreen from './ToDoScreen';
-// import AddScreen from './AddScreen';
+import DiaryScreen from './DiaryScreen';
 import NoticeScreen from './NoticeScreen';
 import DrawerScreen from './drawer';
 import {
@@ -17,42 +17,41 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator, createAppContainer } from '@react-navigation/stack'; 
 import * as Common from '../common/common'; 
 import Amplify from 'aws-amplify';
-import awsConfig from '../aws-exports';
-
-// about redux-persist
-// import { connect } from 'react-redux';
-// import { login, logout } from '../common/reducers/status.reducer';
-import { Provider } from 'react-redux';
-import configureStore from '../common/store';
-// import { reducer } from '../common/reducers';
+// import awsConfig from '../aws-exports';
+const awsConfig = {
+    "aws_project_region": "ap-northeast-2",
+    "aws_dynamodb_all_tables_region": "ap-northeast-2",
+    "aws_dynamodb_table_schemas": [
+        {
+            "tableName": "members-develop",
+            "region": "ap-northeast-2"
+        },
+        {
+            "tableName": "calendar-develop",
+            "region": "ap-northeast-2"
+        }
+    ],
+    "aws_cloud_logic_custom": [
+        {
+            "name": "ApiMembers",
+            "endpoint": "https://lb9lhx8833.execute-api.ap-northeast-2.amazonaws.com/develop",
+            "region": "ap-northeast-2"
+        },
+        {
+            "name": "ApiCalendar",
+            "endpoint": "https://0csm9ncs83.execute-api.ap-northeast-2.amazonaws.com/develop",
+            "region": "ap-northeast-2"
+        }
+    ]
+};
 
 const Stack  = createStackNavigator();
 Common.setCalendarConfig(); // react-native-calendars 환경설정
 Amplify.configure(awsConfig); // Amplify 환경설정
 
 export default function MyStack() {
-
-    //  const mapStateToProps = (state) => ({
-
-    //     number: state.isLogin.status
-      
-    //   });
-
-    //   const mapDispatchToProps = (dispatch) => ({
-
-    //     increment: () => dispatch(increment()),
-      
-    //     decrement: () => dispatch(decrement())
-      
-    //   });
-
-    //   const Container = connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
-      const { store, persistor } = configureStore();
-
-    //   console.log("상태: ", persistor);
     return (
         // 화면목록
-        <Provider store={store}>
         <NavigationContainer>
             <Stack.Navigator
                 screenOptions={{
@@ -65,7 +64,7 @@ export default function MyStack() {
 
                 {/* 2. 캘린더 화면 */}
                 <Stack.Screen name = "Home" component={DrawerScreen} /> 
-                {/* <Stack.Screen name = "Add" component={AddScreen} />  */}
+                <Stack.Screen name = "Diary" component={DiaryScreen} /> 
 
                 {/* 3. 할일 화면 */}
                 {/* <Stack.Screen name = "ToDo" component={ToDoScreen} />  */}
@@ -77,11 +76,7 @@ export default function MyStack() {
             </Stack.Navigator>  
 
             
-        </NavigationContainer>
-        </Provider>
-                       
-
-
+        </NavigationContainer>                       
     )
 }
 

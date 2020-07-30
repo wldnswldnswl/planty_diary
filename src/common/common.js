@@ -33,11 +33,11 @@ export function setCalendarConfig() {
 * @history: 서주희 
             이지운 - fianl_date 반환함수로 변경
 */
-export function getDateString(year, day, month, date, hour, minute, is_am_pm) {
+export function getDateString(year, day, month, date) {
 
     var result = {
         fianl_date: null,
-        am_pm: null //오전,오후 구분 위한 변수 생성
+        // am_pm: null //오전,오후 구분 위한 변수 생성
     }
     // var final_date;
 
@@ -48,12 +48,13 @@ export function getDateString(year, day, month, date, hour, minute, is_am_pm) {
     // 일 글자 수 맞추기 위한 변수 생성
     var date_len;
     // 시간 글자 수 맞추기 위한 변수 생성
-    var hour_len;
+    // var hour_len;
     // 분 글자 수 맞추기 위한 변수 생성
-    var minute_len;
+    // var minute_len;
     // 오전,오후 구분 위한 변수 생성
     // var am_pm;
 
+    console.log("da::",day)
     //day값에 따라 요일 설정
     switch (day) {
         case 0: ko_day = "일";
@@ -85,47 +86,48 @@ export function getDateString(year, day, month, date, hour, minute, is_am_pm) {
     else
         date_len = "";
 
-    //한자릿 수 분을 두자릿수로 설정
-    if (minute < 10)
-        minute_len = "0";
-    else
-        minute_len = "";
+    // //한자릿 수 분을 두자릿수로 설정
+    // if (minute < 10)
+    //     minute_len = "0";
+    // else
+    //     minute_len = "";
 
     //오전,오후 구분
-    if (is_am_pm == null || is_am_pm.trim() == '') {
-        if (hour < 12) {
-            result.am_pm = "오전";
-            if (hour == 0) {
-                hour += 12;
-                hour_len = "0";
-            }
-            hour_len = "";
-        }
-        else if (hour > 11 && hour < 22) {
-            result.am_pm = "오후";
-            if (hour != 12) {
-                hour -= 12;
-                hour_len = "0";
-            }
-            else {
-                hour_len = "";
-            }
-        }
-        else {
-            hour -= 12;
-            hour_len = "";
-            if (hour == 24)
-                result.am_pm = "오전"
-            else
-                result.am_pm = "오후"
-        }
-    } else {
-        if (hour > 9) hour_len = "";
-        else if (hour > 0 && hour < 10) hour_len = "0";
-        result.am_pm = is_am_pm;
-    }
+    // if (is_am_pm == null || is_am_pm.trim() == '') {
+    //     if (hour < 12) {
+    //         result.am_pm = "오전";
+    //         if (hour == 0) {
+    //             hour += 12;
+    //             hour_len = "0";
+    //         }
+    //         hour_len = "";
+    //     }
+    //     else if (hour > 11 && hour < 22) {
+    //         result.am_pm = "오후";
+    //         if (hour != 12) {
+    //             hour -= 12;
+    //             hour_len = "0";
+    //         }
+    //         else {
+    //             hour_len = "";
+    //         }
+    //     }
+    //     else {
+    //         hour -= 12;
+    //         hour_len = "";
+    //         if (hour == 24)
+    //             result.am_pm = "오전"
+    //         else
+    //             result.am_pm = "오후"
+    //     }
+    // } else {
+    //     if (hour > 9) hour_len = "";
+    //     else if (hour > 0 && hour < 10) hour_len = "0";
+    //     result.am_pm = is_am_pm;
+    // }
 
-    result.final_date = year + "." + month_len + "" + month + "." + date_len + "" + date + "(" + ko_day + ") " + result.am_pm + " " + hour_len + "" + hour + ":" + minute_len + "" + minute;
+    result.final_date = year + "." + month_len + "" + month + "." + date_len + "" + date+ "(" + ko_day + ") ";
+    // result.final_date = year + "." + month_len + "" + month + "." + date_len + "" + date + "(" + ko_day + ") " + result.am_pm + " " + hour_len + "" + hour + ":" + minute_len + "" + minute;
 
     //   alert("pass: "+ JSON.stringify(final_date));
     return result;

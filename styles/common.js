@@ -107,7 +107,7 @@ import Colors from './colors';
         color: Colors.blue
     },
 
-    addButton: {
+      addButton: {
         backgroundColor: Colors.darkPrimary,
         borderColor: Colors.darkPrimary,
         borderWidth: 1,

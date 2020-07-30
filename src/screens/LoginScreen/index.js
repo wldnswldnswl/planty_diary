@@ -8,19 +8,10 @@ import {
     TouchableOpacity,
     AsyncStorage
 } from 'react-native';
-/* import {
-    Switch,
-    Route,
-    Link
-} from "react-router-dom"; */
 import { getApi, postApi } from '../../common/common';
 import common from '../../../styles/common'; // common styles
 import styles from './style';
-// import { color } from 'react-native-reanimated';
-import { login, logout }  from '../../common/reducers/status.reducer';
-// import isLogin  from '../../common/reducers/status.reducer';
-import { connect } from 'react-redux';
-
+import Amplify, { API } from 'aws-amplify';
 export default class LoginScreen extends Component {
 
     constructor(props) {
@@ -50,8 +41,7 @@ export default class LoginScreen extends Component {
                alert("빈 칸을 입력해주세요");
            }
         else{
-            const response = await getApi('ApiMembers', '/members/login/'+this.state.email+'/'+this.state.pwd);
-
+            const response = await API.get('ApiMembers', '/members/login/'+this.state.email+'/'+this.state.pwd);
             if(response.data[0] != null){
            
                 this.state.nickname = response.data[0].nickname;
@@ -64,16 +54,9 @@ export default class LoginScreen extends Component {
                 ["nickname", this.state.nickname]
                 ]);
 
-
-
-                // console.log(this.state.email + " "+this.state.nickname);
     
-                const isLoginContainer = connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
-                // console.log(isLoginContainer);
-                // console.log(login().type);
-                // console.log("뭘까:",isLogin(login().type));
-                // this.handleLogin =  handleLogin.bind();
-                // console.log(isLogin);
+                // const isLoginContainer = connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
+               
                 this.props.navigation.navigate('Home', {screen : 'Home', params: {
                     email : this.state.email,
                     nickname: this.state.nickname
