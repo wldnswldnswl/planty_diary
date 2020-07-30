@@ -52,7 +52,7 @@ import common from '../../../styles/common'
         flex: 0.8,
         width: wp('100%'), 
         height: wp('100%'), 
-        marginLeft: wp('1%'),
+        marginLeft: wp('1%')
     }, 
     mainText: { 
         flex: 1.3,
@@ -61,11 +61,21 @@ import common from '../../../styles/common'
         paddingHorizontal: wp('3%') 
     }, 
 
+    cal_title: {
+        width: "100%",
+        height: "7%"
+    },
+
     content: { 
         flex: 8,
         width: "100%", 
         height: "100%",
-        flexDirection: 'column',
+        flexDirection: 'column'
+    },
+
+    footer: {
+        /* flexDirection: "row" */
+        height: "8%"
     },
 
     content_element: {
@@ -214,10 +224,10 @@ import common from '../../../styles/common'
 
     theme_btn : {       
         borderWidth : 1,
-        width : 40,
-        height : 40,
+        width : 30,
+        height : 30,
         borderRadius : 50,
-        left : wp('3%'),
+        right : wp('38%'),
         bottom: hp('2%'),
         position: "absolute"
         // alignItems : 'flex-start'
@@ -276,7 +286,7 @@ import common from '../../../styles/common'
         bottom: 20
       },
       title: {
-        marginTop:20,
+        marginTop:15,
         height:30,
         width: wp('100%'),
         alignItems: 'center',

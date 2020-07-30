@@ -23,6 +23,33 @@
             "StackName": "amplify-plantydiary-develop-54906",
             "StackId": "arn:aws:cloudformation:ap-northeast-2:480895531895:stack/amplify-plantydiary-develop-54906/f4593a00-d1dc-11ea-827b-02b38872de86",
             "AmplifyAppId": "d1tsitpkta9q3w"
+        },
+        "categories": {
+            "function": {
+                "LambdaMembers": {},
+                "LambdaCalendar": {}
+            }
+        }
+    },
+    "plandiary": {
+        "awscloudformation": {
+            "AuthRoleName": "amplify-plantydiary-plandiary-153757-authRole",
+            "UnauthRoleArn": "arn:aws:iam::480895531895:role/amplify-plantydiary-plandiary-153757-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::480895531895:role/amplify-plantydiary-plandiary-153757-authRole",
+            "Region": "ap-northeast-2",
+            "DeploymentBucketName": "amplify-plantydiary-plandiary-153757-deployment",
+            "UnauthRoleName": "amplify-plantydiary-plandiary-153757-unauthRole",
+            "StackName": "amplify-plantydiary-plandiary-153757",
+            "StackId": "arn:aws:cloudformation:ap-northeast-2:480895531895:stack/amplify-plantydiary-plandiary-153757/3567ea80-d22f-11ea-b491-06435d7b912e",
+            "AmplifyAppId": "d1tsitpkta9q3w"
+        },
+        "categories": {
+            "function": {
+                "LambdaMembers": {},
+                "LambdaCalendar": {},
+                "members": {},
+                "calendar": {}
+            }
         }
     }
 }

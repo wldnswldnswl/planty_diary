@@ -118,7 +118,7 @@ app.get(path + "/getCurrentDayList" + hashKeyPath + sortKeyPath, function(req, r
 
   let getItemParams = {
     TableName: tableName,
-    ProjectionExpression: "color, end_date, start_date, title, #uuid",
+    ProjectionExpression: "color, contents, date, title, emoticon, #uuid",
     KeyConditionExpression: "#email = :email AND begins_with(#uuid, :uuid)",
     ExpressionAttributeNames:{
       "#email": "email",
@@ -227,17 +227,14 @@ app.post(path, function(req, res) {
 
    let body = {
     email : req.body.email, // 세션값
-    start_date  : req.body.start_date, // must
-    end_date : req.body.end_date,  // must
+    date  : req.body.date, // must
     uuid :  null, // must
     title : req.body.title, // must
-    description : req.body.description == '' ? null :  req.body.description, // null이면 true가 push됨
     color : req.body.color, // must
-    alarm : req.body.alarm,
-    repeat : req.body.repeat
+    contents : req.body.contents
   }
 
-  body.uuid = body.start_date +"_"+ req.apiGateway.event.requestContext.requestId;
+  body.uuid = body.date +"_"+ req.apiGateway.event.requestContext.requestId;
 
   let putItemParams = {
     TableName: tableName,
