@@ -54,7 +54,8 @@ export default class HomeScreen extends Component {
             email: "",
             CalendarList: [],
             // TodoList: [],
-            nickname: this.props.route.params.nickname
+            nickname: this.props.route.params.nickname,
+            diary_chg: this.props.route.params.diary_chg
         }
 
         console.log("home: ", this.props.route.params);
@@ -72,7 +73,7 @@ export default class HomeScreen extends Component {
         });
         console.log("homescreen");
     }
-
+    
     onDayPress = (day) => {
         this.setState({ selected: day.dateString });
     }
@@ -331,6 +332,7 @@ export default class HomeScreen extends Component {
                         setDateModal={this.setDateModal}
                         gotoDiaryScreen={this.gotoDiaryScreen}
                         changePickerModal={this.changePickerModal}
+                        diary_chg={this.props.route.params.diary_chg}
                     />
 
                 </View>
