@@ -30,7 +30,7 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 
 import { ScrollView } from 'react-native-gesture-handler';
-import { getApi, change_date, change_month, getColor } from '../../common/common';
+import { getApi, change_1len_date, change_1len_month, getColor } from '../../common/common';
 
 export default class HomeScreen extends Component {
 
@@ -131,7 +131,7 @@ export default class HomeScreen extends Component {
     */
     changePickerModal = (calendar) => {
         this.setState({ PickerYear: calendar.toString("yyyy") });
-        this.setState({ PickerMonth: change_month(calendar.toString("MM")) });
+        this.setState({ PickerMonth: change_1len_month(calendar.toString("MM")) });
         this.setState({ PickerCalendar: calendar });
     }
 
@@ -184,8 +184,8 @@ export default class HomeScreen extends Component {
         description: set month, date, day in calendar modal
     */
     setDateModal = async (flag, month, date, day) => {
-        this.setState({ CalendarDate: change_date(date) });
-        this.setState({ CalendarMonth: change_month(month) });
+        this.setState({ CalendarDate: change_1len_date(date) });
+        this.setState({ CalendarMonth: change_1len_month(month) });
         this.setState({ CalendarDay: this.setDayName(day) });
 
         const end_date = this.state.year + "." + month + "." + date;
@@ -211,7 +211,7 @@ export default class HomeScreen extends Component {
     changeYearMonth = (calendar) => {
         this.setState({ Calendarheader_month: calendar });
         this.setState({ year: calendar.toString('yyyy') });
-        this.setState({ month: change_month(calendar.toString('MM')) });
+        this.setState({ month: change_1len_month(calendar.toString('MM')) });
 
         this.forceUpdate();
     }
