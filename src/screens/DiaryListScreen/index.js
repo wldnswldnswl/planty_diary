@@ -69,8 +69,8 @@ export default class DiaryListScreen extends Component {
     gotoDiaryScreen() {
         this.props.navigation.navigate("Diary", {
             isNew: true,
-            year: this.state.year,
-            month: this.state.month,
+            year: this.state.year_month.substring(0,4),
+            month: this.state.year_month.substring(5),
             date: this.state.date,
         });
     }
