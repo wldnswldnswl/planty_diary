@@ -14,7 +14,7 @@ import XDate from 'xdate';
 //styles
 import common from '../../../styles/common';
 import styles from './style';
-import { Calendar, calendarModal, modalReal } from 'react-native-calendars';
+import { Calendar, calendarModal, modalReal, CalendarList } from 'react-native-calendars';
 // import CalendarHeader from 'react-native-calendars/src/calendar/header';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Colors from '../../../styles/colors';
@@ -31,6 +31,7 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 import { ScrollView } from 'react-native-gesture-handler';
 import { getApi, change_date, change_month, getColor } from '../../common/common';
+import { API } from 'aws-amplify';
 
 export default class HomeScreen extends Component {
 
@@ -85,6 +86,11 @@ export default class HomeScreen extends Component {
        description: show Diary Screen with params
    */
     gotoDiaryScreen = (bool_params, data) => {
+
+        console.log("다이어리 페이지로 이동하자.");
+        if(this.state.CalendarList != null || this.state.CalendarList == undefined)
+            bool_params = true;
+        else bool_params = false;
 
         this.props.navigation.navigate("Diary", {
             isNew: bool_params,
@@ -187,18 +193,24 @@ export default class HomeScreen extends Component {
         this.setState({ CalendarMonth: change_month(month) });
         this.setState({ CalendarDay: this.setDayName(day) });
 
-        const end_date = this.state.year + "." + month + "." + date;
-        const start_date = this.state.year + "." + month + "." + date;
-
+        // const end_date = this.state.year + "." + month + "." + date;
+        const start_date = this.state.year + "." + month + "." + date;     
         // const path_todolist = "/todolist/getCurrentDayList/" + JSON.parse(this.state.email) + "/" + end_date;
-        const path_calendarlist = "/calendar/getCurrentDayList/" + JSON.parse(this.state.email) + "/" + start_date;
-
+        const path_calendarlist = "/calendar/getCurrentDayList/" +JSON.parse(this.state.email) + "/2020.08.01";
+        console.log("log: ",path_calendarlist);
         if (flag) {
             // const response_todolist = await getApi("ApiToDoList", path_todolist);
-            const response_calendarlist = await getApi("ApiCalendar", path_calendarlist);
+            const response_calendarlist = await API.get("ApiCalendar", path_calendarlist).then(response => {
+                console.log("dfsfsdfsd:",response);
+                this.gotoDiaryScreen.bind(true);
+            }).catch(error => {
+                this.gotoDiaryScreen.bind(false);
+                console.log("error", error.response);
+            });
+           
 
             // this.setState({ TodoList: response_todolist });
-            this.setState({ CalendarList: response_calendarlist });
+            // this.setState({ CalendarList: response_calendarlist });
         }
         
     }
@@ -239,7 +251,7 @@ export default class HomeScreen extends Component {
                     <TouchableOpacity onPress={() => { this.togglePickerModal(); this.setPickerModal() }}>
                         <Text style={[common.font_title, { color: Colors.gray }]}>{this.state.year}.{this.state.month}</Text>
                     </TouchableOpacity>
-                    <Modal isVisible={this.state.PickerModalVisible} onBackdropPress={() => { this.togglePickerModal() }} >
+                    {/* <Modal isVisible={this.state.PickerModalVisible} onBackdropPress={() => { this.togglePickerModal() }} >
 
                         <View style={styles.modal_container}>
                             <View style={styles.modalheader}>
@@ -289,7 +301,7 @@ export default class HomeScreen extends Component {
 
                         </View>
 
-                    </Modal>
+                    </Modal> */}
 
                     {/* 먼슬리 -> 위클리 전환 */}
                     <Icon name="ios-calendar" size={30} color={Colors.gray}></Icon>
@@ -329,7 +341,7 @@ export default class HomeScreen extends Component {
                         toggleCalendarModal={this.toggleCalendarModal}
                         changeYearMonth={this.changeYearMonth}
                         setDateModal={this.setDateModal}
-                        gotoDiaryScreen={this.gotoDiaryScreen}
+                        // gotoDiaryScreen={this.gotoDiaryScreen}
                         changePickerModal={this.changePickerModal}
                     />
 
