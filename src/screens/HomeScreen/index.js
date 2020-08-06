@@ -55,7 +55,7 @@ export default class HomeScreen extends Component {
             email: "",
             CalendarList: [],
             // TodoList: [],
-            nickname: this.props.route.params.nickname
+            diary_chg: this.props.route.params.diary_chg
         }
 
         console.log("home: ", this.props.route.params);
@@ -73,7 +73,7 @@ export default class HomeScreen extends Component {
         });
         console.log("homescreen");
     }
-
+    
     onDayPress = (day) => {
         this.setState({ selected: day.dateString });
     }
@@ -136,7 +136,7 @@ export default class HomeScreen extends Component {
     */
     changePickerModal = (calendar) => {
         this.setState({ PickerYear: calendar.toString("yyyy") });
-        this.setState({ PickerMonth: change_month(calendar.toString("MM")) });
+        this.setState({ PickerMonth: change_1len_month(calendar.toString("MM")) });
         this.setState({ PickerCalendar: calendar });
     }
 
@@ -222,7 +222,7 @@ export default class HomeScreen extends Component {
     changeYearMonth = (calendar) => {
         this.setState({ Calendarheader_month: calendar });
         this.setState({ year: calendar.toString('yyyy') });
-        this.setState({ month: change_month(calendar.toString('MM')) });
+        this.setState({ month: change_1len_month(calendar.toString('MM')) });
 
         this.forceUpdate();
     }
@@ -343,6 +343,7 @@ export default class HomeScreen extends Component {
                         setDateModal={this.setDateModal}
                         // gotoDiaryScreen={this.gotoDiaryScreen}
                         changePickerModal={this.changePickerModal}
+                        diary_chg={this.props.route.params.diary_chg}
                     />
 
                 </View>

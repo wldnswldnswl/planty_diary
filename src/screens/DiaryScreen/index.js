@@ -183,7 +183,7 @@ export default class AddScreen extends Component {
                     console.log("error", error.response);
                 });
             }
-            this.props.navigation.navigate("Home", { list_chg: true });
+        this.props.navigation.navigate("Home", {screen : 'Home', params: {diary_chg: true}});
         } else {
             alert("일정을 입력하세요"); // 나중에 비동기 이용해 빨간글씨로 바꾸기
         }
@@ -211,7 +211,7 @@ export default class AddScreen extends Component {
     */
     Back() {
         // this.props.navigation.goBack(); // 로 하면 스택에 쌓인 할일/일정 페이지들이 나옴
-        this.props.navigation.navigate("Home", { list_chg: false });
+        this.props.navigation.navigate("Home", {screen : 'Home', params: {diary_chg: false}});
     }
 
     /*

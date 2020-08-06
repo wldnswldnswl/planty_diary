@@ -54,7 +54,7 @@ export function getDateString(year, day, month, date) {
     // 오전,오후 구분 위한 변수 생성
     // var am_pm;
 
-    console.log("da::",day)
+    console.log("da::", day)
     //day값에 따라 요일 설정
     switch (day) {
         case 0: ko_day = "일";
@@ -126,7 +126,7 @@ export function getDateString(year, day, month, date) {
     //     result.am_pm = is_am_pm;
     // }
 
-    result.final_date = year + "." + month_len + "" + month + "." + date_len + "" + date+ "(" + ko_day + ") ";
+    result.final_date = year + "." + month_len + "" + month + "." + date_len + "" + date + "(" + ko_day + ") ";
     // result.final_date = year + "." + month_len + "" + month + "." + date_len + "" + date + "(" + ko_day + ") " + result.am_pm + " " + hour_len + "" + hour + ":" + minute_len + "" + minute;
 
     //   alert("pass: "+ JSON.stringify(final_date));
@@ -240,12 +240,12 @@ export function getColor(index) {
 }
 
 /*
-* @name: change_month
+* @name: change_1len_month
 * @description: 10미만의 month에서 0을 제거해 한자릿수로 만듬 
 * @params: month 
 * @history: 서주희
 */
-export function change_month(month) {
+export function change_1len_month(month) {
 
     let result;
 
@@ -258,12 +258,30 @@ export function change_month(month) {
 }
 
 /*
-* @name: change_date
+* @name: change_2len_month
+* @description: 10미만의 month에 0을 추가해 두자릿수로 만듬 
+* @params: month 
+* @history: 서주희
+*/
+export function change_2len_month(month) {
+
+    let result;
+
+    if (month < 10)
+        result = "0" + month;
+    else
+        result = month;
+
+    return result;
+}
+
+/*
+* @name: change_1len_date
 * @description: 10미만의 date에서 0을 제거해 한자릿수로 만듬 
 * @params: month 
 * @history: 서주희
 */
-export function change_date(date) {
+export function change_1len_date(date) {
 
     let result;
 
@@ -271,6 +289,48 @@ export function change_date(date) {
         result = date.substring(1);
     else
         result = date;
+
+    return result;
+}
+
+/*
+* @name: change_2len_date
+* @description: 10미만의 date에 0을 추가해 두자릿수로 만듬 
+* @params: month 
+* @history: 서주희
+*/
+export function change_2len_date(date) {
+
+    let result;
+
+    if (date < 10)
+        result = "0" + date;
+    else
+        result = date;
+
+    return result;
+}
+
+/*
+* @name: diary_date
+* @description: 일기 날짜를 'n월 n일'형식으로 바꿔주는 함수
+* @params: date 
+* @history: 서주희
+*/
+export function diary_date(date) {
+
+    let result;
+    let month = date.substring(5, 7);
+    let d_date = date.substring(8);
+
+
+    if (month.substring(0, 1) == '0')
+        month = month.substring(1);
+
+    if (d_date.substring(0, 1) == '0')
+        result = month + "월" + " " + d_date.substring(1) + "일";
+    else
+        result = month + "월" + " " + d_date + "일";
 
     return result;
 }

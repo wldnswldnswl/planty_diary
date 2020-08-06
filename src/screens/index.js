@@ -4,7 +4,7 @@ import JoinScreen from './JoinScreen';
 import FindInfoScreen from './FindInfoScreen'; 
 import ContentsScreen from './CustomerSupportItem/ContentsScreen';
 import HomeScreen from './HomeScreen'; 
-import ToDoListScreen from './ToDoListScreen';
+import DiaryListScreen from './DiaryListScreen';
 // import ToDoScreen from './ToDoScreen';
 import DiaryScreen from './DiaryScreen';
 import NoticeScreen from './NoticeScreen';
@@ -70,7 +70,7 @@ export default function MyStack() {
                 {/* <Stack.Screen name = "ToDo" component={ToDoScreen} />  */}
 
                 {/* 4. 고객지원 내용*/}
-                {/* <Stack.Screen name="ToDoList" component={ToDoListScreen} /> */}
+                {/* <Stack.Screen name="DiaryListScreen" component={DiaryListScreen} /> */}
                 <Stack.Screen name="Contents" component={ContentsScreen} />
                 <Stack.Screen name="Notice" component={NoticeScreen} />
             </Stack.Navigator>  

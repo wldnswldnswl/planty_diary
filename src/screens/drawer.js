@@ -15,7 +15,7 @@ import {
   createDrawerNavigator,
   DrawerContentScrollView,
   DrawerItemList
-} from '@react-navigation/drawer';import ToDoListScreen from './ToDoListScreen';
+} from '@react-navigation/drawer';import DiaryListScreen from './DiaryListScreen';
 import SettingScreen from './SettingScreen';
 import HomeScreen from './HomeScreen';
 import CustomerSupportScreen from './CustomerSupportScreen';
@@ -71,10 +71,10 @@ export default function App() {
             }
           }
         />          
-        <Drawer.Screen name="ToDoList" component={ToDoListScreen} 
+        <Drawer.Screen name="DiaryListScreen" component={DiaryListScreen} 
           options = {
             {
-              drawerLabel:"할 일 목록",
+              drawerLabel:"일기 목록",
               drawerIcon: (({focused}) => <Icon name="list-ul" size={20} color={Colors.darkPrimary} />),
             }
           }
