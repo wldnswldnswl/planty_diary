@@ -118,7 +118,57 @@ app.get(path + "/getCurrentDayList" + hashKeyPath + sortKeyPath, function(req, r
 
   let getItemParams = {
     TableName: tableName,
-    ProjectionExpression: "color, contents, date, title, emoticon, #uuid",
+    //ProjectionExpression: "color, contents, date, title, #uuid",
+    KeyConditionExpression: "#email = :email AND begins_with(#uuid, :uuid)",
+    ExpressionAttributeNames:{
+      "#email": "email",
+      "#uuid": "uuid"
+    },
+    ExpressionAttributeValues: {
+      ":email": params["email"],
+      ":uuid": params["uuid"]
+    }
+  }
+
+  dynamodb.query(getItemParams, (err, data) => {
+    if (err) {
+      res.statusCode = 500;
+      res.json({error: 'Could not load items: ' + err});
+    } else {
+      res.json(data.Items);
+    }
+  });
+});
+
+/*****************************************
+ * HTTP Get method for get single object *
+ *****************************************/
+
+app.get(path + "/getCurrentMonthList" + hashKeyPath + sortKeyPath, function(req, res) {
+  var params = {};
+  if (userIdPresent && req.apiGateway) {
+    params[partitionKeyName] = req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
+  } else {
+    params[partitionKeyName] = req.params[partitionKeyName];
+    try {
+      params[partitionKeyName] = convertUrlType(req.params[partitionKeyName], partitionKeyType);
+    } catch(err) {
+      res.statusCode = 500;
+      res.json({error: 'Wrong column type ' + err});
+    }
+  }
+  if (hasSortKey) {
+    try {
+      params[sortKeyName] = convertUrlType(req.params[sortKeyName], sortKeyType);
+    } catch(err) {
+      res.statusCode = 500;
+      res.json({error: 'Wrong column type ' + err});
+    }
+  }
+
+  let getItemParams = {
+    TableName: tableName,
+    //ProjectionExpression: "color, contents, date, title, #uuid",
     KeyConditionExpression: "#email = :email AND begins_with(#uuid, :uuid)",
     ExpressionAttributeNames:{
       "#email": "email",
@@ -231,7 +281,7 @@ app.post(path, function(req, res) {
     uuid :  null, // must
     title : req.body.title, // must
     color : req.body.color, // must
-    contents : req.body.contents
+    contents : req.body.contents //must
   }
 
   body.uuid = body.date +"_"+ req.apiGateway.event.requestContext.requestId;

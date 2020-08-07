@@ -22,6 +22,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 // import DatePicker from '../DatePicker';
 import { getApi, getColor } from '../../common/common'
 import MonthPicker from 'react-native-month-year-picker';
+import { Value } from 'react-native-reanimated';
 
 export default class DiaryListScreen extends Component {
 
@@ -32,8 +33,9 @@ export default class DiaryListScreen extends Component {
         this.state = {
             email: "",
             calendarList: [],
-            year_month: new Date().getFullYear()+"."+change_2len_month(new Date().getMonth() + 1),
-            date: change_2len_date(new Date().getDate())
+            year_month: new Date().getFullYear() + "." + change_2len_month(new Date().getMonth() + 1),
+            date: change_2len_date(new Date().getDate()),
+            DayPickerVisible: false
         }
     }
 
@@ -46,12 +48,15 @@ export default class DiaryListScreen extends Component {
                 }
             }
         });
-
-        const path = "/calendar/getAllDayList/" + JSON.parse(this.state.email);
+        const path = "/calendar/getCurrentDayList/" + JSON.parse(this.state.email) + "/" + this.state.year_month;
         const response = await getApi("ApiCalendar", path);
 
         this.setState({ calendarList: response });
-        // console.log(this.state.calendarList);
+
+    }
+
+    getDiaryList = async () => {
+
     }
 
     /*
@@ -69,10 +74,18 @@ export default class DiaryListScreen extends Component {
     gotoDiaryScreen() {
         this.props.navigation.navigate("Diary", {
             isNew: true,
-            year: this.state.year_month.substring(0,4),
+            year: this.state.year_month.substring(0, 4),
             month: this.state.year_month.substring(5),
             date: this.state.date,
         });
+    }
+
+    showDayPicker = (value) => {
+        this.setState({ DayPickerVisible: value });
+    }
+
+    setDate = (Date) => {
+        this.setState({ year_month: Date });
     }
 
     /*
@@ -85,8 +98,14 @@ export default class DiaryListScreen extends Component {
 
     // HomeScreen : 캘린더
     render() {
-        const { onValueChange } = this;
-        const { date } = "";
+
+        const onValueChange = (event, newDate) => {
+            const selectedDate = newDate || date;
+
+            this.showDayPicker(false);
+            this.setDate(selectedDate);
+        };
+
         // alert("email render: "+this.state.email);
 
         //  const title = this.props.navigation.state.params;
@@ -96,20 +115,24 @@ export default class DiaryListScreen extends Component {
                 <View style={styles.nav}>
                     <TouchableOpacity style={[styles.addButton, { left: 10 }]}
                         underlayColor={Colors.clicked} onPress={this.gotoHomeScreen.bind(this)}>
-                        <Text style={{ fontSize: 30, color: Colors.gray }}>X</Text>
+                        <Text style={{ fontSize: 25, color: Colors.gray, marginTop: wp("8%") }}>X</Text>
                         {/* 아이콘으로 바꾸기 */}
                     </TouchableOpacity>
                     <View style={[styles.title]}>
-                        <TouchableOpacity>
+                        <TouchableOpacity /* onPress={this.showDayPicker(true)} */>
                             <Text style={[common.font_title, common.font_bold], { color: Colors.gray, fontSize: wp('6%') }}>{this.state.year_month}</Text>
                         </TouchableOpacity>
-                        {/* <MonthPicker
+                        {/* {this.state.DayPickerVisible && (<MonthPicker
                             onChange={onValueChange}
-                            value={date}
-                            minimumDate={new Date(1920, 1)}
-                            maximumDate={new Date(2120, 12)}
+                            value={this.state.year_month}
+                            minimumDate={new Date()}
+                            maximumDate={new Date(2025, 5)}
                             enableAutoDarkMode={false}
-                          /> */}
+                            outputFormat="YYYY.MM"
+                            okButton="완료"
+                            cancelButton="취소"
+                        />
+                        )} */}
                     </View>
                 </View>
 
@@ -117,7 +140,7 @@ export default class DiaryListScreen extends Component {
                     <ScrollView>
                         {this.state.calendarList && (
                             this.state.calendarList.map((data) => {
-                                return <DiaryListItem name={data.title} date={data.date} />
+                                return <DiaryListItem name={data.title} date={data.date} contents={data.contents.substring(0, 40)} />
                             })
                         )}
                     </ScrollView>

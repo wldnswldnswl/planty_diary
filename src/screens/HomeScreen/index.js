@@ -52,8 +52,6 @@ export default class HomeScreen extends Component {
             Calendarheader_month: props.current ? parseDate(props.current) : XDate(),
             nickname: this.props.route.params.nickname,
             email: "",
-            CalendarList: [],
-            // TodoList: [],
             nickname: this.props.route.params.nickname,
             diary_chg: this.props.route.params.diary_chg
         }
@@ -180,31 +178,6 @@ export default class HomeScreen extends Component {
     }
 
     /*
-        name: setDateModal
-        description: set month, date, day in calendar modal
-    */
-    setDateModal = async (flag, month, date, day) => {
-        this.setState({ CalendarDate: change_1len_date(date) });
-        this.setState({ CalendarMonth: change_1len_month(month) });
-        this.setState({ CalendarDay: this.setDayName(day) });
-
-        const end_date = this.state.year + "." + month + "." + date;
-        const start_date = this.state.year + "." + month + "." + date;
-
-        // const path_todolist = "/todolist/getCurrentDayList/" + JSON.parse(this.state.email) + "/" + end_date;
-        const path_calendarlist = "/calendar/getCurrentDayList/" + JSON.parse(this.state.email) + "/" + start_date;
-
-        if (flag) {
-            // const response_todolist = await getApi("ApiToDoList", path_todolist);
-            const response_calendarlist = await getApi("ApiCalendar", path_calendarlist);
-
-            // this.setState({ TodoList: response_todolist });
-            this.setState({ CalendarList: response_calendarlist });
-        }
-        
-    }
-
-    /*
         name:  changeYearMonth
         description: change year, month of header, calendar modal
     */
@@ -276,7 +249,6 @@ export default class HomeScreen extends Component {
                                         todayTextColor: Colors.darkPrimary,
                                     }}
                                     changePickerModal={this.changePickerModal}
-                                    setDateModal={this.setDateModal}
                                 />
 
                             </View>
@@ -329,7 +301,6 @@ export default class HomeScreen extends Component {
                         }}
                         toggleCalendarModal={this.toggleCalendarModal}
                         changeYearMonth={this.changeYearMonth}
-                        setDateModal={this.setDateModal}
                         gotoDiaryScreen={this.gotoDiaryScreen}
                         changePickerModal={this.changePickerModal}
                         diary_chg={this.props.route.params.diary_chg}

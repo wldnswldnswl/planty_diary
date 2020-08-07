@@ -116,7 +116,7 @@ export default class AddScreen extends Component {
 
     }
 
-    componentWillMount = async () => {
+    UNSAFE_componentWillMount = async () => {
 
         /*  // 1) 새로 추가
          if (this.state.isNew) {
@@ -280,7 +280,7 @@ export default class AddScreen extends Component {
         } else {
             modifyBtn = <TouchableOpacity style={[styles.addButton, { right: 10 }]}
                 underlayColor={Colors.clicked} onPress={this.gotoHomeScreen.bind(this)}>
-                <Text style={{ fontSize: 30, color: Colors.gray }}>V</Text>
+                <Text style={{ fontSize: 25, color: Colors.gray, marginTop: wp("7%") }}>V</Text>
             </TouchableOpacity>;
             deleteBtn = null;
             colorBtn = <TouchableOpacity title="Theme" style={[styles.theme_btn, { borderColor: getColor(this.state.color) }, { backgroundColor: getColor(this.state.color) }]} onPress={() => { this.toggleColorModal() }}>
@@ -293,11 +293,11 @@ export default class AddScreen extends Component {
                 <View style={styles.nav}>
                     <TouchableOpacity style={[styles.addButton, { left: 10 }]}
                         underlayColor={Colors.clicked} onPress={this.Back.bind(this)}>
-                        <Text style={{ fontSize: 30, color: Colors.gray }}>X</Text>
+                        <Text style={{ fontSize: 25, color: Colors.gray, marginTop: wp("7%") }}>X</Text>
                         {/* 아이콘으로 바꾸기 */}
                     </TouchableOpacity>
                     <View style={[styles.title]}>
-                        <Text style={[common.font_title, common.font_bold], { color: Colors.gray, fontSize: wp('5%') }}>{this.state.year}.{this.state.month}.{this.state.cal_date}</Text>
+                        <Text style={[common.font_title, common.font_bold], { color: Colors.gray, fontSize: wp('6%') }}>{this.state.year}.{this.state.month}.{this.state.cal_date}</Text>
                     </View>
                     {modifyBtn}
                 </View>

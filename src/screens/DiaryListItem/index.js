@@ -20,6 +20,7 @@ export default class DiaryListItem extends Component {
         this.state = {
             title: this.props.name,
             date: diary_date(this.props.date),
+            contents: this.props.contents,
             seq: this.props.seq,
             checked: ""
         };
@@ -51,7 +52,9 @@ export default class DiaryListItem extends Component {
                     <View style={styles.title}>
                         <Text style ={{fontSize : 17, left:wp("1%")}}>{this.state.title}</Text>
                     </View>
-                    <View style={styles.contents}></View>
+                    <View style={styles.contents}>
+                        <Text style ={{fontSize : 16, left:wp("1%")}}>{this.state.contents}</Text>
+                    </View>
                 </View>
             </View>
         );
