@@ -23,7 +23,7 @@ import Colors from '../../../styles/colors'
         justifyContent: 'space-between',
         paddingVertical: wp('3%'), 
         flexDirection: 'row'
-    }, 
+    },
 
     content: { 
         flex: 10,

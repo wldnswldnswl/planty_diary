@@ -102,8 +102,8 @@ export default class LoginScreen extends Component {
             <View style={styles.container}>
                 <View style={styles.titleArea}>
                     {/* 로고 이미지 삽입 */}
-                    <Image source={require('../../../assets/dry-clean.png')}
-                        style={{ width: 200, height: 200 }} />
+                    <Image source={require('../../../assets/Logo.png')}
+                        style={{ width: 170, height: 170 }} />
                 </View>
                 <View style={styles.formArea}>
                     <TextInput

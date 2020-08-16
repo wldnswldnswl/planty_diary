@@ -5,7 +5,8 @@ import {
     View,
     Text,
     TouchableHighlight,
-    AsyncStorage
+    AsyncStorage,
+    Image
     /* ScrollView */
 } from 'react-native';
 import Modal from 'react-native-modal';
@@ -30,14 +31,14 @@ import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 
 import { ScrollView } from 'react-native-gesture-handler';
-import { getApi, change_date, change_month, getColor } from '../../common/common';
+import { getApi, change_1len_month } from '../../common/common';
 import { API } from 'aws-amplify';
 
 export default class HomeScreen extends Component {
 
     constructor(props) {
         super(props);
-        
+
         selected: undefined
         this.state = {
             PickerModalVisible: false,
@@ -72,7 +73,7 @@ export default class HomeScreen extends Component {
         });
         console.log("homescreen");
     }
-    
+
     onDayPress = (day) => {
         this.setState({ selected: day.dateString });
     }
@@ -87,7 +88,7 @@ export default class HomeScreen extends Component {
     gotoDiaryScreen = (bool_params, data) => {
 
         console.log("다이어리 페이지로 이동하자.");
-        if(this.state.CalendarList != null || this.state.CalendarList == undefined)
+        if (this.state.CalendarList != null || this.state.CalendarList == undefined)
             bool_params = true;
         else bool_params = false;
 
@@ -169,7 +170,7 @@ export default class HomeScreen extends Component {
             ko_day = "금"
         else if (en_day == "Sat" || en_day == 6)
             ko_day = "토"
-        else 
+        else
             ko_day = en_day;
 
         return (ko_day);
@@ -212,14 +213,15 @@ export default class HomeScreen extends Component {
         return (
             <View style={styles.container}>
                 <View style={styles.nav}>
-                    <Icon name="ios-menu" size={30} color={Colors.gray}
-                        onPress={this.gotoSideNav.bind(this)}
-                    ></Icon>
+                    <TouchableOpacity onPress={this.gotoSideNav.bind(this)}>
+                        <Image source={require('../../../assets/ios-menu.png')}
+                            style={{ width: 33, height: 33 }} />
+                    </TouchableOpacity>
 
                     <TouchableOpacity onPress={() => { this.togglePickerModal(); this.setPickerModal() }}>
                         <Text style={[common.font_title, { color: Colors.gray }]}>{this.state.year}.{this.state.month}</Text>
                     </TouchableOpacity>
-                    {/* <Modal isVisible={this.state.PickerModalVisible} onBackdropPress={() => { this.togglePickerModal() }} >
+                    <Modal isVisible={this.state.PickerModalVisible} onBackdropPress={() => { this.togglePickerModal() }} >
 
                         <View style={styles.modal_container}>
                             <View style={styles.modalheader}>
@@ -268,10 +270,11 @@ export default class HomeScreen extends Component {
 
                         </View>
 
-                    </Modal> */}
+                    </Modal>
 
                     {/* 먼슬리 -> 위클리 전환 */}
-                    <Icon name="ios-calendar" size={30} color={Colors.gray}></Icon>
+                    <Image source={require('../../../assets/calendar.png')}
+                        style={{ width: 30, height: 30 }} />
 
                     {/* 위클리 -> 먼슬리 전환 */}
                     {/* 모듈 업데이트되면서 아이콘 사라짐;; */}
